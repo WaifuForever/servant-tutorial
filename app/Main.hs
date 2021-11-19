@@ -1,6 +1,7 @@
 module Main where
 
-import ApiType
+import Network.Wai.Handler.Warp
+import Server
 
 main :: IO ()
-main = putStrLn "hello world" :: IO ()
+main = run 8081 app 
