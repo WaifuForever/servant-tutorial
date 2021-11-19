@@ -23,6 +23,22 @@ dependencies:
 - text
 - time
 - servant
+- servant-server
+- mtl
+- aeson
+- base-compat-batteries
+- lucid
+- directory
+- blaze-html
+- blaze-markup
+- bytestring
+- string-conversions
+- http-media
+- wai
+- warp
+- attoparsec
+
+
 
 library:
   source-dirs: src
