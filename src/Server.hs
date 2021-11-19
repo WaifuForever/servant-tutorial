@@ -7,9 +7,11 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE KindSignatures #-}
 
 module Server where
 
+import ApiType (UserAPI10)
 import Control.Monad.Except
 import Control.Monad.Reader
 import Data.Aeson
@@ -20,6 +22,7 @@ import Data.ByteString (ByteString)
 import Data.List
 import Data.Maybe
 import Data.String.Conversions
+import Data.Time (UTCTime)
 import Data.Time.Calendar
 import GHC.Generics
 import Lucid
@@ -34,13 +37,28 @@ import Text.Blaze
 import qualified Text.Blaze.Html
 import Text.Blaze.Html.Renderer.Utf8
 import Prelude ()
-import Data.Time (UTCTime)
-import ApiType (UserAPI10)
+import GHC.Base (Symbol)
 
-type UsersApi =
+type UserAPI (name :: Symbol) = 
+    name
+    :> Get '[JSON] User
+
+
+type UsersAPI =
   "users"
     :> Get '[JSON] [User]
 
+type UsersAPI1 =
+    UsersAPI    
+    :<|> UserAPI "albert"    
+    :<|> UserAPI "isaac" 
+    
+    
+isaac :: User
+isaac = User "Isaac Newton" 338 "issac@newton.co.uk" (fromGregorian 1683 3 1)
+
+albert :: User
+albert = User "Albert Einstein" 116 "ae@mc2.org" (fromGregorian 1905 12 1)
 
 data User = User
   { name :: String,
@@ -53,16 +71,28 @@ data User = User
 instance ToJSON User
 
 ourUsers :: [User]
-ourUsers = 
-    [ User "Isaac Newton"    338 "issac@newton.co.uk" (fromGregorian 1683  3 1),
-      User "Albert Einstein" 116 "ae@mc2.org"         (fromGregorian 1905 12 1)
-    ]
+ourUsers =
+  [ isaac,
+    albert
+  ]
 
-server :: Server UsersApi
+server :: Server UsersAPI
 server = return ourUsers
 
-usersApi :: Proxy UsersApi
-usersApi = Proxy 
+server1 :: Server UsersAPI1
+server1 =
+  return ourUsers
+    :<|> return albert
+    :<|> return isaac
 
-app :: Application 
-app = serve usersApi server
+usersAPI :: Proxy UsersAPI
+usersAPI = Proxy
+
+usersAPI1 :: Proxy UsersAPI1
+usersAPI1 = Proxy
+
+app :: Application
+app = serve usersAPI server
+
+app1 :: Application
+app1 = serve usersAPI1 server1
