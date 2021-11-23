@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 109c9def3f084b2dc6c6b111306c737df0d369facde8110f0a342eddc9fef29c
+-- hash: c27f8f055a058187eb6764ab975c1afe78bdaa7e3cdebe3074e5182561390adb
 
 name:           myproj
 version:        0.1.0.0
@@ -29,6 +29,7 @@ library
       Api
       ApiType
       LucidExample
+      Nested
       Server
   other-modules:
       Paths_myproj

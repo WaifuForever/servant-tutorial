@@ -38,7 +38,7 @@ type UserAPI5 =
     :> Get '[JSON] User
     :<|> "users"
     :> Capture "userid" Integer
-    :> DeleteNoContent '[JSON] NoContent -- equivalent to 'DELETE /user/:userid'
+    :> DeleteNoContent -- equivalent to 'DELETE /user/:userid'
 
 -- GET /users/?sortby={age, name}
 type UserAPI6 =
