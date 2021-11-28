@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c27f8f055a058187eb6764ab975c1afe78bdaa7e3cdebe3074e5182561390adb
+-- hash: 230617f6bffc0a59f0255d4db304f74124c24d7c6a2b3130e4a24e7121b4ea37
 
 name:           myproj
 version:        0.1.0.0
@@ -29,7 +29,9 @@ library
       Api
       ApiType
       LucidExample
-      Nested
+      Nested1
+      Nested2
+      ReaderApi
       Server
   other-modules:
       Paths_myproj

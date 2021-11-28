@@ -2,13 +2,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 {-# LANGUAGE KindSignatures #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TemplateHaskell #-}
+
 {-# LANGUAGE TypeOperators #-}
 
 module LucidExample where
@@ -74,16 +74,16 @@ instance ToHtml [Person] where
   toHtmlRaw = toHtml
 
 people :: [Person]
-people = 
+people =
     [
         Person "Isaac" "Newton",
         Person "Benjamin" "Franklin"
     ]
 personAPI :: Proxy PersonAPI
-personAPI = Proxy 
+personAPI = Proxy
 
 server4 :: Server PersonAPI
 server4 = return people
 
-app2 :: Application 
+app2 :: Application
 app2 = serve personAPI server4
